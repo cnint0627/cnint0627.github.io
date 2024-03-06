@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="/" type="image/x-icon" />
+    <title>
+        
+            API文档-登录 |
+        
+        shyLiu&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.min.css">
+
+    
+<link rel="stylesheet" href="/css/partial/atom-one-dark.min.css">
+
+<meta name="generator" content="Hexo 7.0.0"></head>
+    <body>
+        
+            <header>
+    <a class="title" href="/">
+        <h1>
+            shyLiu&#39;s Blog
+        </h1>
+        
+    </a>
+    <nav>
+        <p>
+            
+        </p>
+    </nav>
+</header>
+        
+        <main>
+    
+    <h1>
+        API文档-登录
+    </h1>
+    
+    <p>
+        <i><time>2024/03/06</time></i>
+    </p>
+    <h1 id="API-文档"><a href="#API-文档" class="headerlink" title="API 文档"></a>API 文档</h1><h2 id="登录-user"><a href="#登录-user" class="headerlink" title="登录 &#x2F;user"></a>登录 &#x2F;user</h2><h3 id="login-用户登录"><a href="#login-用户登录" class="headerlink" title="login 用户登录"></a>login 用户登录</h3><h4 id="请求方式：POST"><a href="#请求方式：POST" class="headerlink" title="请求方式：POST"></a>请求方式：POST</h4><table>
+<thead>
+<tr>
+<th align="center">参数名</th>
+<th align="center">类型</th>
+<th align="center">是否必须</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">username</td>
+<td align="center">String</td>
+<td align="center">true</td>
+</tr>
+<tr>
+<td align="center">password</td>
+<td align="center">String</td>
+<td align="center">true</td>
+</tr>
+</tbody></table>
+<h4 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h4><table>
+<thead>
+<tr>
+<th align="center">是否成功</th>
+<th align="center">值</th>
+<th align="center">类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">true</td>
+<td align="center">token</td>
+<td align="center">String</td>
+</tr>
+<tr>
+<td align="center">false</td>
+<td align="center">错误信息</td>
+<td align="center">String</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="register-用户注册"><a href="#register-用户注册" class="headerlink" title="register 用户注册"></a>register 用户注册</h3><h4 id="请求方式：POST-1"><a href="#请求方式：POST-1" class="headerlink" title="请求方式：POST"></a>请求方式：POST</h4><table>
+<thead>
+<tr>
+<th align="center">参数名</th>
+<th align="center">类型</th>
+<th align="center">是否必须</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">username</td>
+<td align="center">String</td>
+<td align="center">true</td>
+</tr>
+<tr>
+<td align="center">password</td>
+<td align="center">String</td>
+<td align="center">true</td>
+</tr>
+</tbody></table>
+<h4 id="返回值-1"><a href="#返回值-1" class="headerlink" title="返回值"></a>返回值</h4><table>
+<thead>
+<tr>
+<th align="center">是否成功</th>
+<th align="center">值</th>
+<th align="center">类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">true</td>
+<td align="center">null</td>
+<td align="center">String</td>
+</tr>
+<tr>
+<td align="center">false</td>
+<td align="center">错误信息</td>
+<td align="center">String</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="getByUsername-根据用户名查找用户"><a href="#getByUsername-根据用户名查找用户" class="headerlink" title="getByUsername 根据用户名查找用户"></a>getByUsername 根据用户名查找用户</h3><h4 id="请求方式：POST-2"><a href="#请求方式：POST-2" class="headerlink" title="请求方式：POST"></a>请求方式：POST</h4><table>
+<thead>
+<tr>
+<th align="center">参数名</th>
+<th align="center">类型</th>
+<th align="center">是否必须</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">username</td>
+<td align="center">String</td>
+<td align="center">true</td>
+</tr>
+</tbody></table>
+<h4 id="返回值-2"><a href="#返回值-2" class="headerlink" title="返回值"></a>返回值</h4><table>
+<thead>
+<tr>
+<th align="center">是否成功</th>
+<th align="center">值</th>
+<th align="center">类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">true</td>
+<td align="center">用户信息</td>
+<td align="center">Object</td>
+</tr>
+<tr>
+<td align="center">false</td>
+<td align="center">未查找到用户</td>
+<td align="center">String</td>
+</tr>
+</tbody></table>
+
+
+    
+</main>
+        
+            <footer style="padding:25px 0;">
+    
+    <span>
+        Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>
+    </span>
+    <span>
+        Theme <a target="_blank" rel="noopener" href="https://github.com/mouyase/hexo-theme-zen">Zen</a>
+    </span>
+</footer>
+        
+    </body>
+</html>
