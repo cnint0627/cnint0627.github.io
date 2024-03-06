@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="/" type="image/x-icon" />
+    <title>
+        
+            API文档-阅读理解 |
+        
+        shyLiu&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.min.css">
+
+    
+<link rel="stylesheet" href="/css/partial/atom-one-dark.min.css">
+
+<meta name="generator" content="Hexo 7.0.0"></head>
+    <body>
+        
+            <header>
+    <a class="title" href="/">
+        <h1>
+            shyLiu&#39;s Blog
+        </h1>
+        
+    </a>
+    <nav>
+        <p>
+            
+        </p>
+    </nav>
+</header>
+        
+        <main>
+    
+    <h1>
+        API文档-阅读理解
+    </h1>
+    
+    <p>
+        <i><time>2024/03/06</time></i>
+    </p>
+    <hr>
+<h3 id="add-新增阅读理解文章"><a href="#add-新增阅读理解文章" class="headerlink" title="add 新增阅读理解文章"></a>add 新增阅读理解文章</h3><h4 id="请求方式：POST"><a href="#请求方式：POST" class="headerlink" title="请求方式：POST"></a>请求方式：POST</h4><table>
+<thead>
+<tr>
+<th align="center">参数名</th>
+<th align="center">描述</th>
+<th align="center">类型</th>
+<th align="center">是否必须</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">title</td>
+<td align="center">文章标题</td>
+<td align="center">String</td>
+<td align="center">true</td>
+</tr>
+<tr>
+<td align="center">content</td>
+<td align="center">文章内容</td>
+<td align="center">String</td>
+<td align="center">true</td>
+</tr>
+<tr>
+<td align="center">questions</td>
+<td align="center">题目列表</td>
+<td align="center">Array&lt;Object&gt;</td>
+<td align="center">true</td>
+</tr>
+</tbody></table>
+<h4 id="其中questions列表中各元素结构如下所示："><a href="#其中questions列表中各元素结构如下所示：" class="headerlink" title="其中questions列表中各元素结构如下所示："></a>其中questions列表中各元素结构如下所示：</h4><table>
+<thead>
+<tr>
+<th align="center">参数名</th>
+<th align="center">描述</th>
+<th align="center">类型</th>
+<th align="center">是否必须</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">title</td>
+<td align="center">题目题干</td>
+<td align="center">String</td>
+<td align="center">true</td>
+</tr>
+<tr>
+<td align="center">answer</td>
+<td align="center">题目答案</td>
+<td align="center">String</td>
+<td align="center">true</td>
+</tr>
+<tr>
+<td align="center">options</td>
+<td align="center">题目选项</td>
+<td align="center">Array&lt;Object&gt;</td>
+<td align="center">true</td>
+</tr>
+</tbody></table>
+<h4 id="其中options列表中各元素结构如下所示："><a href="#其中options列表中各元素结构如下所示：" class="headerlink" title="其中options列表中各元素结构如下所示："></a>其中options列表中各元素结构如下所示：</h4><table>
+<thead>
+<tr>
+<th align="center">参数名</th>
+<th align="center">描述</th>
+<th align="center">类型</th>
+<th align="center">是否必须</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">content</td>
+<td align="center">选项内容</td>
+<td align="center">String</td>
+<td align="center">true</td>
+</tr>
+</tbody></table>
+<h4 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h4><table>
+<thead>
+<tr>
+<th align="center">是否成功</th>
+<th align="center">值</th>
+<th align="center">类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">true</td>
+<td align="center">null</td>
+<td align="center">null</td>
+</tr>
+<tr>
+<td align="center">false</td>
+<td align="center">错误信息</td>
+<td align="center">String</td>
+</tr>
+</tbody></table>
+<h3 id="传参示例"><a href="#传参示例" class="headerlink" title="传参示例"></a>传参示例</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;title&quot;</span><span class="punctuation">:</span><span class="string">&quot;我是文章标题&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;content&quot;</span><span class="punctuation">:</span><span class="string">&quot;我是文章内容&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;questions&quot;</span><span class="punctuation">:</span><span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;title&quot;</span><span class="punctuation">:</span><span class="string">&quot;我是题目1的题干&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;answer&quot;</span><span class="punctuation">:</span><span class="string">&quot;我是题目1的答案&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;options&quot;</span><span class="punctuation">:</span><span class="punctuation">[</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;content&quot;</span><span class="punctuation">:</span><span class="string">&quot;我是题目1的选项1&quot;</span></span><br><span class="line">                <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;content&quot;</span><span class="punctuation">:</span><span class="string">&quot;我是题目1的选项2&quot;</span></span><br><span class="line">                <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;content&quot;</span><span class="punctuation">:</span><span class="string">&quot;我是题目1的选项3&quot;</span></span><br><span class="line">                <span class="punctuation">&#125;</span></span><br><span class="line">        <span class="punctuation">]</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;title&quot;</span><span class="punctuation">:</span><span class="string">&quot;我是题目2的题干&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;answer&quot;</span><span class="punctuation">:</span><span class="string">&quot;我是题目2的答案&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;options&quot;</span><span class="punctuation">:</span><span class="punctuation">[</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;content&quot;</span><span class="punctuation">:</span><span class="string">&quot;我是题目2的选项1&quot;</span></span><br><span class="line">                <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;content&quot;</span><span class="punctuation">:</span><span class="string">&quot;我是题目2的选项2&quot;</span></span><br><span class="line">                <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">]</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<hr>
+
+
+    
+</main>
+        
+            <footer style="padding:25px 0;">
+    
+    <span>
+        Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>
+    </span>
+    <span>
+        Theme <a target="_blank" rel="noopener" href="https://github.com/mouyase/hexo-theme-zen">Zen</a>
+    </span>
+</footer>
+        
+    </body>
+</html>
