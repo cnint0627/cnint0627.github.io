@@ -44,7 +44,105 @@
         <i><time>2024/03/06</time></i>
     </p>
     <hr>
-<h3 id="add-新增阅读理解文章"><a href="#add-新增阅读理解文章" class="headerlink" title="add 新增阅读理解文章"></a>add 新增阅读理解文章</h3><h4 id="请求方式：POST"><a href="#请求方式：POST" class="headerlink" title="请求方式：POST"></a>请求方式：POST</h4><table>
+<h3 id="list-获取所有文章简略信息（id，标题）"><a href="#list-获取所有文章简略信息（id，标题）" class="headerlink" title="list 获取所有文章简略信息（id，标题）"></a>list 获取所有文章简略信息（id，标题）</h3><h4 id="请求方式：GET"><a href="#请求方式：GET" class="headerlink" title="请求方式：GET"></a>请求方式：GET</h4><h4 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h4><table>
+<thead>
+<tr>
+<th align="center">是否成功</th>
+<th align="center">值</th>
+<th align="center">类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">true</td>
+<td align="center">文章信息</td>
+<td align="center">Array&lt;Object&gt;</td>
+</tr>
+<tr>
+<td align="center">false</td>
+<td align="center">错误信息</td>
+<td align="center">String</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="page-分页获取文章简略信息（id，标题）"><a href="#page-分页获取文章简略信息（id，标题）" class="headerlink" title="page 分页获取文章简略信息（id，标题）"></a>page 分页获取文章简略信息（id，标题）</h3><h4 id="请求方式：POST"><a href="#请求方式：POST" class="headerlink" title="请求方式：POST"></a>请求方式：POST</h4><table>
+<thead>
+<tr>
+<th align="center">参数名</th>
+<th align="center">描述</th>
+<th align="center">类型</th>
+<th align="center">是否必须</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">pageNum</td>
+<td align="center">当前页数（默认为1）</td>
+<td align="center">number</td>
+<td align="center">false</td>
+</tr>
+<tr>
+<td align="center">pageSize</td>
+<td align="center">页面大小（默认为10）</td>
+<td align="center">number</td>
+<td align="center">false</td>
+</tr>
+</tbody></table>
+<h4 id="返回值-1"><a href="#返回值-1" class="headerlink" title="返回值"></a>返回值</h4><table>
+<thead>
+<tr>
+<th align="center">是否成功</th>
+<th align="center">值</th>
+<th align="center">类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">true</td>
+<td align="center">文章信息</td>
+<td align="center">Array&lt;Object&gt;</td>
+</tr>
+<tr>
+<td align="center">false</td>
+<td align="center">错误信息</td>
+<td align="center">String</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="getById-根据id查找文章全部信息"><a href="#getById-根据id查找文章全部信息" class="headerlink" title="getById 根据id查找文章全部信息"></a>getById 根据id查找文章全部信息</h3><h4 id="请求方式：POST-1"><a href="#请求方式：POST-1" class="headerlink" title="请求方式：POST"></a>请求方式：POST</h4><table>
+<thead>
+<tr>
+<th align="center">参数名</th>
+<th align="center">描述</th>
+<th align="center">类型</th>
+<th align="center">是否必须</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">id</td>
+<td align="center">文章id</td>
+<td align="center">number</td>
+<td align="center">true</td>
+</tr>
+</tbody></table>
+<h4 id="返回值-2"><a href="#返回值-2" class="headerlink" title="返回值"></a>返回值</h4><table>
+<thead>
+<tr>
+<th align="center">是否成功</th>
+<th align="center">值</th>
+<th align="center">类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">true</td>
+<td align="center">文章信息</td>
+<td align="center">Array&lt;Object&gt;</td>
+</tr>
+<tr>
+<td align="center">false</td>
+<td align="center">未找到该文章</td>
+<td align="center">String</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="add-新增阅读理解文章"><a href="#add-新增阅读理解文章" class="headerlink" title="add 新增阅读理解文章"></a>add 新增阅读理解文章</h3><h4 id="请求方式：POST-2"><a href="#请求方式：POST-2" class="headerlink" title="请求方式：POST"></a>请求方式：POST</h4><table>
 <thead>
 <tr>
 <th align="center">参数名</th>
@@ -116,7 +214,7 @@
 <td align="center">true</td>
 </tr>
 </tbody></table>
-<h4 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h4><table>
+<h4 id="返回值-3"><a href="#返回值-3" class="headerlink" title="返回值"></a>返回值</h4><table>
 <thead>
 <tr>
 <th align="center">是否成功</th>
