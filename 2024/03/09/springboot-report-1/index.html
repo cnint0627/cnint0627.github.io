@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="/" type="image/x-icon" />
+    <title>
+        
+            SpringBoot3部署到云服务器（Linux）踩坑记录 |
+        
+        shyLiu&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.min.css">
+
+    
+<link rel="stylesheet" href="/css/partial/atom-one-dark.min.css">
+
+<meta name="generator" content="Hexo 7.0.0"></head>
+    <body>
+        
+            <header>
+    <a class="title" href="/">
+        <h1>
+            shyLiu&#39;s Blog
+        </h1>
+        
+    </a>
+    <nav>
+        <p>
+            
+        </p>
+    </nav>
+</header>
+        
+        <main>
+    
+    <h1>
+        SpringBoot3部署到云服务器（Linux）踩坑记录
+    </h1>
+    
+    <p>
+        <i><time>2024/03/09</time></i>
+    </p>
+    <hr>
+<h2 id="一、系统环境"><a href="#一、系统环境" class="headerlink" title="一、系统环境"></a>一、系统环境</h2><pre><code>我使用的是天翼云免费试用2个月的云服务器，基础配置为1核1GB，操作系统为CentOS 8.3 64位。
+</code></pre>
+<h2 id="二、过程记录"><a href="#二、过程记录" class="headerlink" title="二、过程记录"></a>二、过程记录</h2><h3 id="（一）安装jdk"><a href="#（一）安装jdk" class="headerlink" title="（一）安装jdk"></a>（一）安装jdk</h3><ol>
+<li>先使用yum安装wget工具<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install wget</span><br></pre></td></tr></table></figure></li>
+<li>使用wget从oracle的官网下载最新的jdk21（这里根据SpringBoot项目的jdk版本选择，我使用的是jdk21进行开发，所以服务器上也安装相应版本的jdk）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.tar.gz</span><br></pre></td></tr></table></figure></li>
+<li>将下载好的.tar.gz压缩文件进行解压<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf jdk-21_linux-x64_bin.tar.gz</span><br></pre></td></tr></table></figure>
+ 如果提示tar命令不存在，则先使用yum安装tar，方法同上，再进行解压</li>
+<li>接下来添加环境变量，先打开&#x2F;etc&#x2F;profile文件<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile</span><br></pre></td></tr></table></figure>
+ 在文件的结尾添加如下几行命令：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_HOME=/root/jdk-21.0.2  <span class="comment"># 自己的jdk解压后的存放路径，我放在根目录下所以是root</span></span><br><span class="line"><span class="built_in">export</span> JRE_HOME=<span class="variable">$&#123;JAVA_HOME&#125;</span>/jre</span><br><span class="line"><span class="built_in">export</span> CLASSPATH=.:<span class="variable">$&#123;JAVA_HOME&#125;</span>/lib:<span class="variable">$&#123;JRE_HOME&#125;</span>/lib:<span class="variable">$CLASSPATH</span></span><br><span class="line"><span class="built_in">export</span> JAVA_PATH=<span class="variable">$&#123;JAVA_HOME&#125;</span>/bin:<span class="variable">$&#123;JRE_HOME&#125;</span>/bin</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$&#123;JAVA_PATH&#125;</span></span><br></pre></td></tr></table></figure>
+ 保存后对文件进行刷新<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure>
+ 最后验证jdk是否配置成功<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java --version</span><br></pre></td></tr></table></figure>
+ 如果输出相应的jdk版本号，则说明jdk配置成功<br> 否则请仔细检查&#x2F;etc&#x2F;profile文件是否配置正确（一般是由于该文件没有正确配置导致的）</li>
+</ol>
+<h3 id="（二）安装mysql"><a href="#（二）安装mysql" class="headerlink" title="（二）安装mysql"></a>（二）安装mysql</h3><ol>
+<li>安装mysql前，需要先安装依赖的gcc编译器<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc</span><br></pre></td></tr></table></figure></li>
+<li>使用wget在线下载mysql<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm</span><br></pre></td></tr></table></figure></li>
+<li>安装mysql<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh mysql57-community-release-el7-8.noarch.rpm</span><br></pre></td></tr></table></figure>
+ 如果安装提示错误，或者安装失败，使用如下命令进行安装<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh mysql57-community-release-el7-8.noarch.rpm --nodeps --force</span><br></pre></td></tr></table></figure></li>
+<li>安装mysql服务<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install mysql-server</span><br></pre></td></tr></table></figure></li>
+<li>启动mysql，注意mysql的服务名位mysqld<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service mysqld start</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="（三）导入SpringBoot项目jar包到服务器"><a href="#（三）导入SpringBoot项目jar包到服务器" class="headerlink" title="（三）导入SpringBoot项目jar包到服务器"></a>（三）导入SpringBoot项目jar包到服务器</h3><ol>
+<li><p>用maven先对项目进行clean，再进行package打包，生成的jar包在项目的target目录下</p>
+</li>
+<li><p>使用ssh等方式将jar包上传至服务器，我这里使用的软件是MobaXterm</p>
+</li>
+</ol>
+<h4 id="注意：项目配置文件中需要指定server为0-0-0-0，并且端口号port我设置的是8888，如果使用默认的8080后面发现无论如何都无法请求到服务器，但是看网上也有人使用8080可以正常访问（这个问题排查了好久好久QAQ）。另外，配置mysql时由于数据库使用的是服务器的数据库，所以仍用localhost，在最后处加上-useSSL-false参数，避免后面无法连接到数据库"><a href="#注意：项目配置文件中需要指定server为0-0-0-0，并且端口号port我设置的是8888，如果使用默认的8080后面发现无论如何都无法请求到服务器，但是看网上也有人使用8080可以正常访问（这个问题排查了好久好久QAQ）。另外，配置mysql时由于数据库使用的是服务器的数据库，所以仍用localhost，在最后处加上-useSSL-false参数，避免后面无法连接到数据库" class="headerlink" title="注意：项目配置文件中需要指定server为0.0.0.0，并且端口号port我设置的是8888，如果使用默认的8080后面发现无论如何都无法请求到服务器，但是看网上也有人使用8080可以正常访问（这个问题排查了好久好久QAQ）。另外，配置mysql时由于数据库使用的是服务器的数据库，所以仍用localhost，在最后处加上?useSSL&#x3D;false参数，避免后面无法连接到数据库"></a>注意：项目配置文件中需要指定server为0.0.0.0，并且端口号port我设置的是8888，如果使用默认的8080后面发现无论如何都无法请求到服务器，但是看网上也有人使用8080可以正常访问（这个问题排查了好久好久QAQ）。另外，配置mysql时由于数据库使用的是服务器的数据库，所以仍用localhost，在最后处加上?useSSL&#x3D;false参数，避免后面无法连接到数据库</h4><h3 id="（四）开放服务器防火墙端口"><a href="#（四）开放服务器防火墙端口" class="headerlink" title="（四）开放服务器防火墙端口"></a>（四）开放服务器防火墙端口</h3><ol>
+<li>先在云服务器控制台（也就是在本地打开云服务器运营商的管理界面）设置安全组，在入规则里添加端口8888（SpringBoot项目的端口，默认为8080，前面提到过，我改成了8888后才能请求到）。</li>
+<li>再在服务器终端中启动防火墙服务<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service firewalld start</span><br></pre></td></tr></table></figure></li>
+<li>手动打开服务器防火墙的相应端口<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=8888/tcp --permanent</span><br></pre></td></tr></table></figure></li>
+<li>重新载入防火墙配置<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure></li>
+<li>重启防火墙服务<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service firewalld restart</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="五-运行SpringBoot项目"><a href="#五-运行SpringBoot项目" class="headerlink" title="(五)运行SpringBoot项目"></a>(五)运行SpringBoot项目</h3><h4 id="一切准备就绪，使用命令运行导入的jar包，不出意外的话就可以用外网愉快地访问啦！"><a href="#一切准备就绪，使用命令运行导入的jar包，不出意外的话就可以用外网愉快地访问啦！" class="headerlink" title="一切准备就绪，使用命令运行导入的jar包，不出意外的话就可以用外网愉快地访问啦！"></a>一切准备就绪，使用命令运行导入的jar包，<del>不出意外</del>的话就可以用外网愉快地访问啦！</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">nohup</span> java -jar demo.jar &amp;</span><br></pre></td></tr></table></figure>
+<h4 id="通过nohup可以使java程序在后台挂起，期间可以正常操作其他功能。"><a href="#通过nohup可以使java程序在后台挂起，期间可以正常操作其他功能。" class="headerlink" title="通过nohup可以使java程序在后台挂起，期间可以正常操作其他功能。"></a>通过nohup可以使java程序在后台挂起，期间可以正常操作其他功能。</h4><h4 id="在本机只需要将原本的-localhost-8888-改成-你的服务器ip-8888（你自己配置的端口号），就能正常请求到SpringBoot的接口了！！！！"><a href="#在本机只需要将原本的-localhost-8888-改成-你的服务器ip-8888（你自己配置的端口号），就能正常请求到SpringBoot的接口了！！！！" class="headerlink" title="在本机只需要将原本的 localhost:8888 改成 你的服务器ip:8888（你自己配置的端口号），就能正常请求到SpringBoot的接口了！！！！"></a>在本机只需要将原本的 localhost:8888 改成 你的服务器ip:8888（你自己配置的端口号），就能正常请求到SpringBoot的接口了！！！！</h4><h5 id="（细节待更新）"><a href="#（细节待更新）" class="headerlink" title="（细节待更新）"></a><center>（细节待更新）</h5>
+
+    
+</main>
+        
+            <footer style="padding:25px 0;">
+    
+    <span>
+        Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>
+    </span>
+    <span>
+        Theme <a target="_blank" rel="noopener" href="https://github.com/mouyase/hexo-theme-zen">Zen</a>
+    </span>
+</footer>
+        
+    </body>
+</html>
